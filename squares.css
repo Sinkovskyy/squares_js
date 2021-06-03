@@ -3,6 +3,16 @@
     display: inline-block;
 }
 
+#square-app .app-container
+{
+    display: grid;
+    grid-template-areas:
+    ". rc rc ."
+    "rr fd fd ar"
+    "rr fd fd ar"
+    ". ac ac .";
+
+}
 
 #squares-field
 {
@@ -11,6 +21,7 @@
     border:2px solid #5599EB;
     gap: 3px;
     padding: 3px;
+    grid-area: fd;
 }
 
 
@@ -20,3 +31,45 @@
     width: 50px;
     background-color: #5599EB;
 } 
+
+
+#addRowButtonContainer
+{
+    grid-area: ar;
+}
+
+#addColumnButtonContainer
+{
+    grid-area: ac;
+}
+
+#removeColumnButtonContainer
+{
+    grid-area: rc;
+}
+
+#removeRowButtonContainer
+{
+    grid-area: rr;
+}
+
+
+.addButton
+{
+    background-color: #F1B200;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    
+}
+
+#addRowButton
+{
+    margin: 5px 3px;
+}
+
+#addColumnButton
+{
+    margin: 3px 5px;
+}
