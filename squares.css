@@ -8,9 +8,9 @@
     display: grid;
     grid-template-areas:
     ". rc rc ."
-    "rr fd fd ar"
-    "rr fd fd ar"
-    ". ac ac .";
+    "rr fd fd ac"
+    "rr fd fd ac"
+    ". ar ar .";
 
 }
 
@@ -66,10 +66,10 @@
 
 #addRowButton
 {
-    margin: 5px 3px;
+    margin: 3px 5px;
 }
 
 #addColumnButton
 {
-    margin: 3px 5px;
+    margin: 5px 3px;
 }

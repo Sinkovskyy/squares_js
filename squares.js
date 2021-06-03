@@ -54,14 +54,17 @@ const squareApp = function() {
         "grid-template-columns : repeat(" + columns +",50px)");
     }
 
-    function addRowButtonClickHandler()
-    {
-        columns++;
-        addSquares(document.getElementsByClassName("square").length / columns);
-        changeFieldLayout();
-    }
 
     function addColumnButtonClickHandler()
+    {
+        addSquares(document.getElementsByClassName("square").length / columns);
+        columns++;
+        changeFieldLayout();
+        
+    }
+
+
+    function addRowButtonClickHandler()
     {
         addSquares(columns);
     }
