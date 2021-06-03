@@ -61,6 +61,7 @@
     cursor: pointer;
     height: 50px;
     width: 50px;
+    color:white;
     
 }
 
@@ -72,4 +73,25 @@
 #addColumnButton
 {
     margin: 5px 3px;
+}
+
+.removeButton
+{
+    background-color: #B80000;
+    border: none;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    color:white;
+    position: relative;
+}
+
+#removeRowButton
+{
+    margin: 5px 3px;
+}
+
+#removeColumnButton
+{
+    margin: 3px 5px;
 }

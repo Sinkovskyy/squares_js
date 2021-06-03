@@ -36,6 +36,41 @@ const squareApp = function() {
     addRowButton.innerHTML = addColumnButton.innerHTML = "+";
     
 
+    // Remove buttons
+    const removeRowButton = document.createElement("button");
+    removeRowButton.id = "removeRowButton";
+
+    const removeColumnButton = document.createElement("button");
+    removeColumnButton.id = "removeColumnButton";
+
+    removeRowButton.className = removeColumnButton.className = "removeButton";
+    removeRowButton.innerHTML = removeColumnButton.innerHTML = "-";
+
+
+    function changeRemoveButtonPosition(index)
+    {
+        const moveLenght = 53;
+        removeRowButton.setAttribute("style",
+        "top:" + moveLenght * ((index - index % columns) / columns) + "px" 
+        );
+        removeColumnButton.setAttribute("style",
+        "left:" + moveLenght * (index % columns)  + "px" 
+        );
+    }
+
+
+ 
+
+
+    function onMouseEnterSquareHandler(event)
+    {
+        const element = event.target;
+        const targetIndex =  Array.from(document.getElementsByClassName("square")).indexOf(element);
+        changeRemoveButtonPosition(targetIndex);
+
+    }
+
+
     function addSquares(lenght)
     {
         let square;
@@ -43,6 +78,7 @@ const squareApp = function() {
         {
             square = this.document.createElement("div");
             square.className = "square";
+            square.addEventListener("mouseenter",onMouseEnterSquareHandler);
             field.appendChild(square);
         }
     }
@@ -80,6 +116,9 @@ const squareApp = function() {
         container.appendChild(removeRowButtonContainer);
         addRowButtonContainer.appendChild(addRowButton);
         addColumnButtonContainer.appendChild(addColumnButton);
+        removeColumnButtonContainer.appendChild(removeColumnButton);
+        removeRowButtonContainer.appendChild(removeRowButton);
+
         addSquares(4);
         changeFieldLayout();
 
