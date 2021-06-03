@@ -1,0 +1,22 @@
+#square-app
+{
+    display: inline-block;
+}
+
+
+#squares-field
+{
+    display: grid;
+    grid-template-columns: repeat(2,50px);
+    border:2px solid #5599EB;
+    gap: 3px;
+    padding: 3px;
+}
+
+
+#squares-field .square
+{
+    height: 50px;
+    width: 50px;
+    background-color: #5599EB;
+} 
