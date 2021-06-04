@@ -3,6 +3,7 @@
 const squareApp = function() {
 
     let columns = 2;
+    const RM_BUTTON_STEP = 53; // Remove button sptep 
 
     const appElement = document.getElementById("square-app");
 
@@ -47,20 +48,38 @@ const squareApp = function() {
     removeRowButton.innerHTML = removeColumnButton.innerHTML = "-";
 
 
-    function changeRemoveButtonVisiableState(visiable)
+    function changeRemoveButtonVisiableState(visiable = true)
     {
+        const squares = document.getElementsByClassName("square");
         removeColumnButton.style.visibility = 
         removeRowButton.style.visibility = visiable ? "visible":"hidden";
+
+        if(visiable)
+        {
+            if(!(squares.length > columns))
+            {
+                removeRowButton.style.visibility = "hidden";
+            }
+    
+            if(columns == 1)
+            {
+                
+                removeColumnButton.style.visibility = "hidden";
+            }
+        }
+       
     }
 
 
     function addSquares(lenght)
     {
         let square;
-        for(let i = 0; i < lenght;i++)
+        const countSquares = document.getElementsByClassName("square").length;
+        for(let i = countSquares; i < lenght + countSquares;i++)
         {
             square = this.document.createElement("div");
             square.className = "square";
+            square.innerHTML = i;
             square.addEventListener("mouseenter",onMouseEnterSquareHandler);
             field.addEventListener("mouseleave",onMouseLeaveSquareAreaHandler);
             field.appendChild(square);
@@ -90,12 +109,11 @@ const squareApp = function() {
     // Change position relative to focused square position
     function changeRemoveButtonPosition(index)
     {
-        const moveLenght = 53;
         removeRowButton.setAttribute("style",
-        "top:" + moveLenght * ((index - index % columns) / columns) + "px"
+        "top:" + RM_BUTTON_STEP * ((index - index % columns) / columns) + "px"
         );
         removeColumnButton.setAttribute("style",
-        "left:" + moveLenght * (index % columns)  + "px" 
+        "left:" + RM_BUTTON_STEP * (index % columns)  + "px" 
         );
     }
 
@@ -128,7 +146,6 @@ const squareApp = function() {
     {
         changeRemoveButtonVisiableState(false);
     }
-
    
 
     function onMouseEnterRemoveButtonHandler()
@@ -146,8 +163,17 @@ const squareApp = function() {
     function removeRowButtonClickHandler()
     {
         let squares = document.getElementsByClassName("square");
+        const position = parseInt(removeRowButton.style.top);
+        // Delete squares
         if( squares.length > columns)
             removeSquares(columns);
+
+        changeRemoveButtonVisiableState();
+        // Make button invisiable when remove button is more far then squares 
+        if(position / RM_BUTTON_STEP >= squares.length / columns )
+        {
+            changeRemoveButtonVisiableState(false);
+        }
     }
 
 
@@ -155,12 +181,23 @@ const squareApp = function() {
     {
 
         let squares = document.getElementsByClassName("square");
-        if( columns - 1 > 0)
+        const position = parseInt(removeColumnButton.style.left);
+        if(columns == 1)
         {
-            removeSquares((squares.length - (squares.length % columns))/ columns);
-            columns--;
-            changeFieldLayout();
+            changeRemoveButtonVisiableState();
         }
+        // Delete squares and columns
+        removeSquares((squares.length - (squares.length % columns))/ columns);
+        columns--;
+        changeFieldLayout();
+        changeRemoveButtonVisiableState();
+
+         // Make button invisiable when remove button is more far then squares 
+        if(position / RM_BUTTON_STEP >= columns )
+        {
+            changeRemoveButtonVisiableState(false);
+        }
+
             
     }
 
