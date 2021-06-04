@@ -71,7 +71,7 @@ const squareApp = function() {
     }
 
 
-    function addSquares(lenght)
+    function addRow(lenght)
     {
         let square;
         const countSquares = document.getElementsByClassName("square").length;
@@ -84,6 +84,37 @@ const squareApp = function() {
             field.addEventListener("mouseleave",onMouseLeaveSquareAreaHandler);
             field.appendChild(square);
         }
+    }
+
+    function addColumn(lenght)
+    {
+        let square;
+        const squares = Array.from(document.getElementsByClassName("square"));
+        field.innerHTML = null;
+        const squaresLength = squares.length;
+        for(let i = 0; i < squaresLength + lenght;i++)
+        {
+            if((i+1) % columns == 0 && i !== 0)
+            {
+                
+                square = this.document.createElement("div");
+                square.className = "square";
+                square.innerHTML = 10 + i;
+                square.addEventListener("mouseenter",onMouseEnterSquareHandler);
+                if(i+i == squaresLength + lenght)
+                {
+                    squares.push(square);
+                }
+                else
+                {
+                    squares.splice(i,0,square);
+                }
+                
+            }
+            field.appendChild(squares[i]);
+        }
+   
+        
     }
 
     function removeSquares(lenght)
@@ -120,15 +151,14 @@ const squareApp = function() {
 
     function addColumnButtonClickHandler()
     {
-        addSquares(document.getElementsByClassName("square").length / columns);
-        columns++;
+        addColumn(document.getElementsByClassName("square").length / columns++);
         changeFieldLayout();
         
     }
 
     function addRowButtonClickHandler()
     {
-        addSquares(columns);
+        addRow(columns);
     }
 
 
@@ -217,11 +247,12 @@ const squareApp = function() {
         removeColumnButtonContainer.appendChild(removeColumnButton);
         removeRowButtonContainer.appendChild(removeRowButton);
 
-        addSquares(4);
+        addRow(4);
         changeFieldLayout();
 
         addRowButton.addEventListener("click",addRowButtonClickHandler);
         addColumnButton.addEventListener("click",addColumnButtonClickHandler);
+        field.addEventListener("mouseleave",onMouseLeaveSquareAreaHandler);
         removeRowButton.addEventListener("click",removeRowButtonClickHandler);
         removeColumnButton.addEventListener("click",removeColumnButtonClickHandler);
         removeColumnButton.addEventListener("mouseenter",onMouseEnterRemoveButtonHandler);
