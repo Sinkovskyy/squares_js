@@ -47,27 +47,10 @@ const squareApp = function() {
     removeRowButton.innerHTML = removeColumnButton.innerHTML = "-";
 
 
-    function changeRemoveButtonPosition(index)
+    function changeRemoveButtonVisiableState(visiable)
     {
-        const moveLenght = 53;
-        removeRowButton.setAttribute("style",
-        "top:" + moveLenght * ((index - index % columns) / columns) + "px" 
-        );
-        removeColumnButton.setAttribute("style",
-        "left:" + moveLenght * (index % columns)  + "px" 
-        );
-    }
-
-
- 
-
-
-    function onMouseEnterSquareHandler(event)
-    {
-        const element = event.target;
-        const targetIndex =  Array.from(document.getElementsByClassName("square")).indexOf(element);
-        changeRemoveButtonPosition(targetIndex);
-
+        removeColumnButton.style.visibility = 
+        removeRowButton.style.visibility = visiable ? "visible":"hidden";
     }
 
 
@@ -79,15 +62,32 @@ const squareApp = function() {
             square = this.document.createElement("div");
             square.className = "square";
             square.addEventListener("mouseenter",onMouseEnterSquareHandler);
+            field.addEventListener("mouseleave",onMouseLeaveSquareAreaHandler);
             field.appendChild(square);
         }
     }
+
 
     // Change columts size in element 
     function changeFieldLayout()
     {
         field.setAttribute("style",
         "grid-template-columns : repeat(" + columns +",50px)");
+    }
+
+
+    // Handlers
+
+    // Change position relative to focused square position
+    function changeRemoveButtonPosition(index)
+    {
+        const moveLenght = 53;
+        removeRowButton.setAttribute("style",
+        "top:" + moveLenght * ((index - index % columns) / columns) + "px"
+        );
+        removeColumnButton.setAttribute("style",
+        "left:" + moveLenght * (index % columns)  + "px" 
+        );
     }
 
 
@@ -99,12 +99,56 @@ const squareApp = function() {
         
     }
 
-
     function addRowButtonClickHandler()
     {
         addSquares(columns);
     }
 
+
+    function onMouseEnterSquareHandler(event)
+    {
+        const element = event.target;
+        const targetIndex =  Array.from(document.getElementsByClassName("square")).indexOf(element);
+        
+        changeRemoveButtonPosition(targetIndex);
+        changeRemoveButtonVisiableState(true);
+    }
+
+
+    function onMouseLeaveSquareAreaHandler()
+    {
+        changeRemoveButtonVisiableState(false);
+    }
+
+   
+
+    function onMouseEnterRemoveButtonHandler()
+    {
+        changeRemoveButtonVisiableState(true);
+    }
+
+
+    function onMouseLeaveRemoveButtonHandler()
+    {
+        changeRemoveButtonVisiableState(false);
+    }
+
+
+    function removeRowButtonClickHandler()
+    {
+        console.log("click");
+
+    }
+
+
+    function removeColumnButtonClickHandler()
+    {
+
+        console.log("click");
+    }
+
+
+   
     // Main function
     return (() => 
     {
@@ -124,6 +168,12 @@ const squareApp = function() {
 
         addRowButton.addEventListener("click",addRowButtonClickHandler);
         addColumnButton.addEventListener("click",addColumnButtonClickHandler);
+        removeRowButton.addEventListener("click",removeRowButtonClickHandler);
+        removeColumnButton.addEventListener("click",removeColumnButtonClickHandler);
+        removeColumnButton.addEventListener("mouseenter",onMouseEnterRemoveButtonHandler);
+        removeRowButton.addEventListener("mouseenter",onMouseEnterRemoveButtonHandler);
+        removeColumnButton.addEventListener("mouseleave",onMouseLeaveRemoveButtonHandler);
+        removeRowButton.addEventListener("mouseleave",onMouseLeaveRemoveButtonHandler);
 
     });
 

@@ -25,6 +25,7 @@
 }
 
 
+
 #squares-field .square
 {
     height: 50px;
@@ -46,11 +47,14 @@
 #removeColumnButtonContainer
 {
     grid-area: rc;
+    height: 56px;
+  
 }
 
 #removeRowButtonContainer
 {
     grid-area: rr;
+    width: 56px;
 }
 
 
@@ -75,6 +79,8 @@
     margin: 5px 3px;
 }
 
+
+/* Remove button styles */
 .removeButton
 {
     background-color: #B80000;
@@ -84,14 +90,19 @@
     width: 50px;
     color:white;
     position: relative;
+    visibility: hidden;
+    transition: all .1s linear;
 }
 
 #removeRowButton
 {
     margin: 5px 3px;
+
 }
 
 #removeColumnButton
 {
     margin: 3px 5px;
+
 }
+
