@@ -67,6 +67,15 @@ const squareApp = function() {
         }
     }
 
+    function removeSquares(lenght)
+    {
+        const squares = document.getElementsByClassName("square");
+        for(let i = 0; i < lenght;i++)
+        {
+            squares[i].remove();
+        }
+    }
+
 
     // Change columts size in element 
     function changeFieldLayout()
@@ -136,15 +145,23 @@ const squareApp = function() {
 
     function removeRowButtonClickHandler()
     {
-        console.log("click");
-
+        let squares = document.getElementsByClassName("square");
+        if( squares.length > columns)
+            removeSquares(columns);
     }
 
 
     function removeColumnButtonClickHandler()
     {
 
-        console.log("click");
+        let squares = document.getElementsByClassName("square");
+        if( columns - 1 > 0)
+        {
+            removeSquares((squares.length - (squares.length % columns))/ columns);
+            columns--;
+            changeFieldLayout();
+        }
+            
     }
 
 
