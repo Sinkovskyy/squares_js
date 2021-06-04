@@ -255,6 +255,12 @@ const squareApp = function() {
             changeFieldLayout();
             changeRemoveButtonVisiableState();
         }
+
+
+        if(position / RM_BUTTON_STEP >= columns )
+        {
+            changeRemoveButtonVisiableState(false);
+        }
     
 
             
