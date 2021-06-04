@@ -66,8 +66,13 @@
     height: 50px;
     width: 50px;
     color:white;
+    font-size: 17pt;
+    font-weight: bold;
+    transition: opacity .2s linear;
     
 }
+
+
 
 #addRowButton
 {
@@ -79,6 +84,10 @@
     margin: 5px 3px;
 }
 
+.addButton:hover
+{
+    opacity: .7;
+}
 
 /* Remove button styles */
 .removeButton
@@ -91,7 +100,9 @@
     color:white;
     position: relative;
     visibility: hidden;
-    transition: all .1s linear;
+    transition: all .2s linear;
+    font-size: 17pt;
+    font-weight: bold;
 }
 
 #removeRowButton
@@ -104,5 +115,10 @@
 {
     margin: 3px 5px;
 
+}
+
+.removeButton:hover
+{
+    opacity: .7;
 }
 

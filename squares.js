@@ -2,7 +2,7 @@
 // Square app script function
 const squareApp = function() {
 
-    let columns = 2;
+    let columns = 4;
     const RM_BUTTON_STEP = 53; // Remove button sptep 
 
     const appElement = document.getElementById("square-app");
@@ -77,11 +77,11 @@ const squareApp = function() {
         const countSquares = document.getElementsByClassName("square").length;
         for(let i = countSquares; i < lenght + countSquares;i++)
         {
+            // Create new square
             square = this.document.createElement("div");
             square.className = "square";
-            square.innerHTML = i;
             square.addEventListener("mouseenter",onMouseEnterSquareHandler);
-            field.addEventListener("mouseleave",onMouseLeaveSquareAreaHandler);
+            // Append new square in the field
             field.appendChild(square);
         }
     }
@@ -97,10 +97,12 @@ const squareApp = function() {
             if((i+1) % columns == 0 && i !== 0)
             {
                 
+                // Create new square
                 square = this.document.createElement("div");
                 square.className = "square";
-                square.innerHTML = 10 + i;
                 square.addEventListener("mouseenter",onMouseEnterSquareHandler);
+
+                // Check where we need to push element
                 if(i+i == squaresLength + lenght)
                 {
                     squares.push(square);
@@ -113,9 +115,9 @@ const squareApp = function() {
             }
             field.appendChild(squares[i]);
         }
-   
         
     }
+
 
     function removeColumn()
     {
@@ -156,8 +158,6 @@ const squareApp = function() {
     }
 
 
-    // Handlers
-
     // Change position relative to focused square position
     function changeRemoveButtonPosition(index)
     {
@@ -170,11 +170,13 @@ const squareApp = function() {
     }
 
 
+    // Handlers
+
+
     function addColumnButtonClickHandler()
     {
         addColumn(document.getElementsByClassName("square").length / columns++);
         changeFieldLayout();
-        
     }
 
     function addRowButtonClickHandler()
@@ -186,6 +188,7 @@ const squareApp = function() {
     function onMouseEnterSquareHandler(event)
     {
         const element = event.target;
+        // Create a new array of existing squares
         const targetIndex =  Array.from(document.getElementsByClassName("square")).indexOf(element);
         
         changeRemoveButtonPosition(targetIndex);
@@ -233,21 +236,26 @@ const squareApp = function() {
 
         let squares = document.getElementsByClassName("square");
         const position = parseInt(removeColumnButton.style.left);
+
+        // If lenght of column equal 1 if true then delete button disapear
         if(columns == 1)
         {
             changeRemoveButtonVisiableState();
         }
-        // Delete squares and columns
-        removeColumn();
-        columns--;
-        changeFieldLayout();
-        changeRemoveButtonVisiableState();
-
-         // Make button invisiable when remove button is more far then squares 
-        if(position / RM_BUTTON_STEP >= columns )
+        // Make button invisiable when remove button is more far then squares 
+        else if(position / RM_BUTTON_STEP >= columns )
         {
             changeRemoveButtonVisiableState(false);
         }
+        else
+        {
+            // Delete squares and columns
+            removeColumn();
+            columns--;
+            changeFieldLayout();
+            changeRemoveButtonVisiableState();
+        }
+    
 
             
     }
@@ -257,6 +265,7 @@ const squareApp = function() {
     // Main function
     return (() => 
     {
+        // Create html markup
         appElement.appendChild(container);
         container.appendChild(field);
         container.appendChild(addColumnButtonContainer);
@@ -268,9 +277,11 @@ const squareApp = function() {
         removeColumnButtonContainer.appendChild(removeColumnButton);
         removeRowButtonContainer.appendChild(removeRowButton);
 
-        addRow(4);
+        // generate 4x4 squares
+        addRow(16);
         changeFieldLayout();
 
+        // Add listeners
         addRowButton.addEventListener("click",addRowButtonClickHandler);
         addColumnButton.addEventListener("click",addColumnButtonClickHandler);
         field.addEventListener("mouseleave",onMouseLeaveSquareAreaHandler);
@@ -290,6 +301,7 @@ const squareApp = function() {
 
 window.addEventListener("load", function(event) {
 
+    // Initializate script when window loaded
     squareApp()();
 
 });
