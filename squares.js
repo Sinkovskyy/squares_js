@@ -117,12 +117,33 @@ const squareApp = function() {
         
     }
 
-    function removeSquares(lenght)
+    function removeColumn()
     {
-        const squares = document.getElementsByClassName("square");
-        for(let i = 0; i < lenght;i++)
+        const squares = Array.from(document.getElementsByClassName("square"));
+        const squaresLenght = squares.length;
+        field.innerHTML = null;
+        const buttonPosition = parseInt(removeColumnButton.style.left) / RM_BUTTON_STEP;
+        for(let i = 0; i < squaresLenght;i++)
         {
-            squares[i].remove();
+            if((i + columns - buttonPosition) % columns != 0 )
+            { 
+                field.appendChild(squares[i]);
+            }
+                
+        }
+    }
+
+
+    function removeRow()
+    {
+        const squares = Array.from(document.getElementsByClassName("square"));
+        const squaresLenght = squares.length;
+        field.innerHTML = null;
+        const buttonPosition = parseInt( removeRowButton.style.top) / RM_BUTTON_STEP;
+        for(let i = 0; i < squaresLenght;i++)
+        {
+            if( i < buttonPosition * columns || i >= (buttonPosition + 1) * columns)
+                field.appendChild(squares[i]);
         }
     }
 
@@ -196,7 +217,7 @@ const squareApp = function() {
         const position = parseInt(removeRowButton.style.top);
         // Delete squares
         if( squares.length > columns)
-            removeSquares(columns);
+            removeRow();
 
         changeRemoveButtonVisiableState();
         // Make button invisiable when remove button is more far then squares 
@@ -217,7 +238,7 @@ const squareApp = function() {
             changeRemoveButtonVisiableState();
         }
         // Delete squares and columns
-        removeSquares((squares.length - (squares.length % columns))/ columns);
+        removeColumn();
         columns--;
         changeFieldLayout();
         changeRemoveButtonVisiableState();
