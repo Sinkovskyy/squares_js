@@ -68,7 +68,8 @@
     color:white;
     font-size: 17pt;
     font-weight: bold;
-    transition: opacity .2s linear;
+    transition: opacity .5s ease;
+    
     
 }
 
@@ -100,9 +101,11 @@
     color:white;
     position: relative;
     visibility: hidden;
-    transition: all .2s linear;
+    transition: all .1s linear ,opacity .5s ease;
     font-size: 17pt;
     font-weight: bold;
+    /* this fix transtion visual bug */
+    -webkit-transform: translateZ(0);
 }
 
 #removeRowButton
@@ -120,5 +123,6 @@
 .removeButton:hover
 {
     opacity: .7;
+   
 }
 
